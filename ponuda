@@ -1,0 +1,75 @@
+<?php
+
+// Ponuda.php
+
+class Ponuda
+{
+    protected $broj;
+    protected $datum;
+    protected $stavke = array();
+
+    function __construct($b)
+    {
+        $this->setBroj($b);
+        $this->setDatum(date("Y-m-d"));
+        $this->UnosStavki();
+    }
+
+    function getBroj()
+    {
+        return $this->broj;
+    }
+
+    function setBroj($param)
+    {
+        $this->broj = $param;
+    }
+
+    function getDatum()
+    {
+        return $this->datum;
+    }
+
+    function setDatum($param)
+    {
+        $this->datum = $param;
+    } 
+    
+    function getStavke()
+    {
+        return $this->stavke;
+    }
+
+    function setStavka($param)
+    {
+        $this->stavke[] = $param;
+    }
+
+    function UnosStavki()
+    {
+        $i = 1;
+
+        while(true)
+        {
+            echo "Stavaka ".$i.":\n";
+            
+            $prozivod_naziv = readline("Proizvod: ");
+            $proizvod_kolicina = readline("Kolicina: ");
+            $proizvod_cijena = readline("Cijena: ");
+    
+            $stavka = array($prozivod_naziv, $proizvod_kolicina, $proizvod_cijena);                    
+
+            $this->setStavka($stavka);
+            $i++;
+
+            $check = readline("Da li zelite unijeti jos jednu stavku D/N: ");
+
+            if($check == "N" || $check == "n")
+            {
+                break;
+            }
+        }
+    }
+}
+
+?>
