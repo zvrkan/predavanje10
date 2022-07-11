@@ -1,0 +1,119 @@
+<?php
+
+// Blagajna.php
+
+class Blagajna
+{
+    protected $ponude = array();
+    protected $racuni = array();
+
+    function __construct()
+    {
+        $this->Unos();        
+    }
+
+    function getPonude()
+    {
+        return $this->ponude;
+    }
+
+    function setPonuda($param)
+    {
+        $this->ponude[] = $param;
+    }
+
+    function getRacuni()
+    {
+        return $this->racuni;
+    }
+
+    function setRacun($param)
+    {
+        $this->racuni[] = $param;
+    }    
+
+    function Unos()
+    {
+        while(true)
+        {
+            $this->OdabirAkcije();
+
+            $check = readline("Da li zelite zavrsiti rad u programu D/N: ");
+
+            if($check == "D" || $check == "d")
+            {
+                break;
+            }            
+        }        
+    }
+
+    function OdabirAkcije()
+    {   
+        echo "P - Stvori novu ponudu\n";
+        echo "R - Stvori novi racun\n";
+        echo "S - Prikazi sve ponude\n";
+        echo "U - Prikazi sve racune\n";
+
+        $akcija = readline("Odaberite akciju: ");
+
+        switch($akcija)
+        {
+            case 'P':
+            case 'p':
+
+                $br = count($this->ponude);
+                $br++;
+
+                $ponuda = new Ponuda($br);
+
+                $this->ponude[] = $ponuda;
+            break;
+
+            case 'R':
+            case 'r':
+
+                $br = count($this->racuni);
+                $br++;
+
+                $racun = new Racun($br); 
+
+                $this->racuni[] = $racun;
+            break; 
+
+            case 'S':
+            case 's':
+                if(count($this->ponude) > 0)
+                {
+                    foreach($this->ponude as $key => $ponuda)
+                    {
+                        echo ($key + 1) . ". Ponuda Br. ".$ponuda->getBroj().", Datum: ".$ponuda->getDatum()."\n";
+                    }
+                }
+                else
+                {
+                    echo "-- NEMA NITI JEDNE PONUDE --\n";
+                }
+            break;
+
+            case 'U':
+            case 'u':
+                if(count($this->racuni) > 0)
+                {
+                    foreach($this->racuni as $key => $racun)
+                    {
+                        echo ($key + 1) . ". Ponuda Br. ".$racun->getBroj().", Datum: ".$racun->getDatum()."\n";
+                    }
+                }
+                else
+                {
+                    echo "-- NEMA NITI JEDAN RACUN --\n";
+                }
+            break;            
+            
+            default:
+                echo "Krivi odabir. Pokusajte ponovo!\n";
+        }
+    }
+}
+
+?>
